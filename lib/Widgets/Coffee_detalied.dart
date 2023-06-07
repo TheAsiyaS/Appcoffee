@@ -75,7 +75,7 @@ class Coffee_detailed extends StatelessWidget {
                 icon: kback)),
         actions: [
           Card(
-              color: Color.fromARGB(56, 232, 134, 14),
+              color: const Color.fromARGB(56, 232, 134, 14),
               child: IconButton(onPressed: () {}, icon: kcart)),
           w20,
         ],
@@ -88,7 +88,7 @@ class Coffee_detailed extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 Container(
-                  height: size.height / 1.2,
+                  height: size.height / 1,
                   width: size.width,
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -102,7 +102,7 @@ class Coffee_detailed extends StatelessWidget {
                       topRight: Radius.circular(30),
                     ),
                   ),
-                  height: size.height / 4.3,
+                  height: size.height / 4,
                   width: size.width,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +120,7 @@ class Coffee_detailed extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          IconButton(onPressed: () {}, icon: kfavourite_outline)
+                          IconButton(onPressed: () {}, icon: kfavorite_outline)
                         ],
                       ),
                       h10,

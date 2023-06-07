@@ -36,6 +36,9 @@ CupertinoIcons.back
 );
 
 
-const kfavourite_outline = Icon(
+const kfavorite_outline = Icon(
 Icons.favorite_outline_outlined
+);
+const kfavorite = Icon(
+Icons.favorite
 );

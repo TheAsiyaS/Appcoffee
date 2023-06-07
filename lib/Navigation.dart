@@ -1,7 +1,7 @@
 import 'package:coffeeapp/Prersentation/Account/Account.dart';
 import 'package:coffeeapp/Prersentation/Cart/Cart.dart';
 import 'package:coffeeapp/Prersentation/Home/Home.dart';
-import 'package:coffeeapp/Prersentation/Liked/Liked.dart';
+import 'package:coffeeapp/Prersentation/Favorite/Favorite.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:flutter/material.dart';
@@ -39,16 +39,16 @@ class Navigationbar extends StatelessWidget {
                         Icons.home,
                       ),
                       label: 'Home'),
-                  BottomNavigationBarItem(
+                  BottomNavigationBarItem( 
                       icon: Icon(
                         Icons.coffee,
                       ),
                       label: 'Cart'),
                   BottomNavigationBarItem(
-                      icon: Icon(
-                        Icons.favorite_outline,
-                      ),
-                      label: 'Liked'),
+                      icon:
+                       kfavorite,
+                      
+                      label: 'Favourite'),
                   BottomNavigationBarItem(icon: kperson, label: 'Account'),
                 ]),
             body: navigationScreens[bottomIndex.value],
