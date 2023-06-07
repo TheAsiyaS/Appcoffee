@@ -25,6 +25,9 @@ const kmorevert = Icon(
 const kadd = Icon(
   Icons.add,
 );
+const kremove= Icon(
+  Icons.remove,
+);
 const kcart = Icon(
   Icons.shopping_cart,
 );
