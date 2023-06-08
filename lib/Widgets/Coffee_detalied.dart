@@ -32,6 +32,7 @@ class Coffee_detailed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<double> ratingvalue = ValueNotifier(3);
+    ValueNotifier<bool> islike = ValueNotifier(false);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       commonurllist.addAll([
         kUrlAll,
@@ -77,7 +78,7 @@ class Coffee_detailed extends StatelessWidget {
                 icon: kback)),
         actions: [
           Card(
-              color: const Color.fromARGB(56, 232, 134, 14),
+              color: ktransaparentGrey,
               child: IconButton(onPressed: () {}, icon: kcart)),
           w20,
         ],
@@ -122,7 +123,23 @@ class Coffee_detailed extends StatelessWidget {
                                   fontSize: 30, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          IconButton(onPressed: () {}, icon: kfavorite_outline)
+                          ValueListenableBuilder(
+                              valueListenable: islike,
+                              builder: (context, newvalue, _) {
+                                return IconButton(
+                                    onPressed: () async {
+                                      islike.value = !islike.value;
+                                      final model = FavCoffeeModel(
+                                          coffeename: Coffee_title,
+                                          coffeeurl: Coffee_url,
+                                          coffeedescription: Coffee_subtitle,
+                                          coffeecost: Coffee_cost);
+                                      await AddCoffeesfavData(model);
+                                    }, 
+                                    icon: islike.value
+                                        ? kfavorite
+                                        : kfavorite_outline);
+                              })
                         ],
                       ),
                       h10,
@@ -147,7 +164,7 @@ class Coffee_detailed extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height,
+              height: size.height/4,
               width: size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,7 +209,7 @@ class Coffee_detailed extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                         onTap: () async {
+                        onTap: () async {
                           final model = AddCoffeeModel(
                               coffeename: Coffee_title,
                               coffeeurl: Coffee_url,

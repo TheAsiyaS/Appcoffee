@@ -2,12 +2,12 @@ import 'package:coffeeapp/Prersentation/Sign_Ui/Sign_in_up.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDatabase();
   await initializedDatabase();
+  await initializesDatabase();
   runApp(const MyApp());
 }
 

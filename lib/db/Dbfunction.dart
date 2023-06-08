@@ -6,8 +6,10 @@ import 'package:sqflite/sqflite.dart';
 
 ValueNotifier<List<CoffeeModel>> CoffeeListNotifier = ValueNotifier([]);
 ValueNotifier<List<AddCoffeeModel>> addCoffeeListNotifier = ValueNotifier([]);
+ValueNotifier<List<FavCoffeeModel>> favCoffeeListNotifier = ValueNotifier([]);
 late Database db;
 late Database adddb;
+late Database favdb;
 Future<void> initializeDatabase() async {
   db = await openDatabase(
     'coffee.db',
@@ -30,6 +32,17 @@ Future<void> initializedDatabase() async {
   );
 }
 
+Future<void> initializesDatabase() async {
+  favdb = await openDatabase(
+    'favcoffee.db',
+    version: 1,
+    onCreate: (Database db, int version) async {
+      await db.execute(
+          'CREATE TABLE favcoffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT )');
+    },
+  );
+}
+
 Future<void> getCoffeesData() async {
   final value = await db.rawQuery('SELECT * FROM coffee');
   CoffeeListNotifier.value.clear();
@@ -45,7 +58,7 @@ Future<void> getCoffeesData() async {
 Future<void> getaddCoffeesData() async {
   final value = await adddb.rawQuery('SELECT * FROM addcoffee');
   addCoffeeListNotifier.value.clear();
-  log('db: $value');
+  // log('db: $value');
   value.forEach((json) {
     final coffeedetail = AddCoffeeModel.fromJson(json);
     addCoffeeListNotifier.value.add(coffeedetail);
@@ -53,6 +66,18 @@ Future<void> getaddCoffeesData() async {
   });
 }
 
+Future<void> getfavCoffeesData() async {
+  final value = await favdb.rawQuery('SELECT * FROM favcoffee');
+  CoffeeListNotifier.value.clear();
+  log('db: $value');
+  value.forEach((json) {
+    final coffeedetail = FavCoffeeModel.fromJson(json);
+    favCoffeeListNotifier.value.add(coffeedetail);
+
+    favCoffeeListNotifier.notifyListeners();
+  });
+}
+ 
 Future<void> addCoffeesData(CoffeeModel coffeemodel) async {
   await db.rawInsert(
       'INSERT INTO coffee(coffeename, coffeeurl, coffeedescription,coffeecost) VALUES(?,?,?,?)',
@@ -75,4 +100,16 @@ Future<void> AddCoffeesData(AddCoffeeModel coffeemodel) async {
         coffeemodel.coffeecost
       ]);
   getaddCoffeesData();
+}
+
+Future<void> AddCoffeesfavData(FavCoffeeModel coffeemodel) async {
+  await favdb.rawInsert(
+      'INSERT INTO favcoffee(coffeename, coffeeurl, coffeedescription,coffeecost) VALUES(?,?,?,?)',
+      [
+        coffeemodel.coffeename,
+        coffeemodel.coffeeurl,
+        coffeemodel.coffeedescription,
+        coffeemodel.coffeecost
+      ]);
+  getfavCoffeesData();
 }

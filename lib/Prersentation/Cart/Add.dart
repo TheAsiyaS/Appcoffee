@@ -8,18 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 class Addedcartitems extends StatelessWidget {
   const Addedcartitems({
     Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.from,
-    required this.cost,
-    required this.imageurl,
+
   }) : super(key: key);
 
-  final String title;
-  final String subtitle;
-  final String from;
-  final String cost;
-  final String imageurl;
+
 
   @override
   Widget build(BuildContext context) {

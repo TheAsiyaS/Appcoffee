@@ -1,4 +1,5 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:flutter/material.dart';
 
 class Liked extends StatelessWidget {
@@ -13,11 +14,23 @@ class Liked extends StatelessWidget {
         backgroundColor: kblack,
       ),
       body: SafeArea(
-          child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 30,
-        children: List.generate(10, (index) => Favouritecard(size: size)),
-      )),
+          child: ValueListenableBuilder(
+              valueListenable: favCoffeeListNotifier,
+              builder: (context, newvalue, _) {
+                return GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 30,
+                  children: List.generate(
+                      favCoffeeListNotifier.value.length,
+                      (index) => Favouritecard(
+                            size: size,
+                            url: newvalue[index].coffeeurl,
+                            cost: newvalue[index].coffeecost,
+                            subtitle: newvalue[index].coffeedescription,
+                            title: newvalue[index].coffeename,
+                          )),
+                );
+              })), 
     );
   }
 }
@@ -26,10 +39,17 @@ class Favouritecard extends StatelessWidget {
   const Favouritecard({
     super.key,
     required this.size,
+    required this.url,
+    required this.title,
+    required this.subtitle,
+    required this.cost,
   });
 
   final Size size;
-
+  final String url;
+  final String title;
+  final String subtitle;
+  final String cost;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -42,27 +62,26 @@ class Favouritecard extends StatelessWidget {
             width: size.width / 3,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                image: const DecorationImage(
-                    image: AssetImage('asset/common/common_0.jpg'),
-                    fit: BoxFit.cover)),
+                image:
+                    DecorationImage(image: AssetImage(url), fit: BoxFit.cover)),
           ),
-          const Card(
+          Card(
             color: kblack,
             child: ListTile(
               title: Center(
                 child: Text(
-                  "Coffee_name",
+                  title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               subtitle: Column(
                 children: [
-                  Divider(
+                  const Divider(
                     color: kbrownlight,
                   ),
                   Text(
-                    "Coffee_something dfuhdf fduigfug  dfhgufdg kdfiddfu idf ",
+                    subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

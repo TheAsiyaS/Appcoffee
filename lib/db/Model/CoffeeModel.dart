@@ -48,3 +48,29 @@ class AddCoffeeModel {
         coffeecost: coffeecost);
   }
 }
+
+class FavCoffeeModel {
+  final String coffeename;
+  final String coffeeurl;
+  final String coffeedescription;
+  final String coffeecost;
+  FavCoffeeModel({
+    required this.coffeename,
+    required this.coffeeurl,
+    required this.coffeedescription,
+    required this.coffeecost,
+  });
+
+  static FavCoffeeModel fromJson(Map<String, dynamic> json) {
+    final coffeename = json['coffeename'];
+    final coffeeurl = json['coffeeurl'];
+    final coffeedescription = json['coffeedescription'];
+    final coffeecost = json['coffeecost'];
+
+    return FavCoffeeModel(
+        coffeename: coffeename,
+        coffeeurl: coffeeurl,
+        coffeedescription: coffeedescription,
+        coffeecost: coffeecost);
+  }
+}

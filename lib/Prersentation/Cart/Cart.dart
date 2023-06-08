@@ -54,13 +54,7 @@ class Cart extends StatelessWidget {
                     data: newvalue,
                   );
                 }),
-            const Addedcartitems(
-                title: 'Latte',
-                subtitle:
-                    'A coffee mixture with milk,shdsdhfds sdfy fdufhudf sufu dfuydf usdfuf sfusfsf usfusf sudfhudsfsdf sfusf ssfusfus fushfusdfusd  sdhfusdf ddhufhdsfu sdfhsudhfusdf sfhsufs sfduhfu',
-                from: 'Mc Cafe',
-                cost: '\$2',
-                imageurl: 'asset/mc donalds/Mc_2.jpg'),
+            const Addedcartitems(),
           ])),
     );
   }
