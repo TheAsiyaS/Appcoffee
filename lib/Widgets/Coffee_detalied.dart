@@ -4,6 +4,8 @@ import 'package:coffeeapp/Domain/Urls.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/db/Model/CoffeeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -189,43 +191,63 @@ class Coffee_detailed extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Container(
-                        height: size.height / 12,
-                        width: size.width / 2.3,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                              colors: [
-                                kbrowndark,
-                                kgoldlight,
-                                kbrowndark,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        child: Center(
-                            child: Text('Add to cart',
-                                style: GoogleFonts.dancingScript(
-                                    fontSize: 25, color: kwhite))),
+                      GestureDetector(
+                         onTap: () async {
+                          final model = AddCoffeeModel(
+                              coffeename: Coffee_title,
+                              coffeeurl: Coffee_url,
+                              coffeedescription: Coffee_subtitle,
+                              coffeecost: Coffee_cost);
+                          await AddCoffeesData(model);
+                        },
+                        child: Container(
+                          height: size.height / 12,
+                          width: size.width / 2.3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                colors: [
+                                  kbrowndark,
+                                  kgoldlight,
+                                  kbrowndark,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )),
+                          child: Center(
+                              child: Text('Add to cart',
+                                  style: GoogleFonts.dancingScript(
+                                      fontSize: 25, color: kwhite))),
+                        ),
                       ),
-                      Container(
-                        height: size.height / 12,
-                        width: size.width / 2.3,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            gradient: const LinearGradient(
-                              colors: [
-                                kbrowndark,
-                                kgoldlight,
-                                kbrowndark,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )),
-                        child: Center(
-                            child: Text('Buy Now',
-                                style: GoogleFonts.dancingScript(
-                                    fontSize: 25, color: kwhite))),
+                      GestureDetector(
+                        onTap: () async {
+                          final model = CoffeeModel(
+                              coffeename: Coffee_title,
+                              coffeeurl: Coffee_url,
+                              coffeedescription: Coffee_subtitle,
+                              coffeecost: Coffee_cost);
+                          await addCoffeesData(model);
+                        },
+                        child: Container(
+                          height: size.height / 12,
+                          width: size.width / 2.3,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: const LinearGradient(
+                                colors: [
+                                  kbrowndark,
+                                  kgoldlight,
+                                  kbrowndark,
+                                ],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight,
+                              )),
+                          child: Center(
+                              child: Text('Buy Now',
+                                  style: GoogleFonts.dancingScript(
+                                      fontSize: 25, color: kwhite))),
+                        ),
                       )
                     ],
                   )

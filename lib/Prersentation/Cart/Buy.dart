@@ -1,25 +1,16 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
-import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
+import 'package:coffeeapp/db/Model/CoffeeModel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Buyedcartitems extends StatelessWidget {
   const Buyedcartitems({
     Key? key,
-    required this.title,
-    required this.subtitle,
-    required this.from,
-    required this.cost,
-    required this.imageurl,
+    required this.data,
   }) : super(key: key);
 
-  final String title;
-  final String subtitle;
-  final String from;
-  final String cost;
-  final String imageurl;
-
+  final List<CoffeeModel> data;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -41,7 +32,7 @@ class Buyedcartitems extends StatelessWidget {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
-                          image: AssetImage(imageurl),
+                          image: AssetImage(data[index].coffeeurl),
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -56,25 +47,29 @@ class Buyedcartitems extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                title,
-                                style: GoogleFonts.playfairDisplay(
-                                  color: kwhite,
-                                  fontSize: 20,
+                              Expanded(
+                                child: Text(
+                                  data[index].coffeename,
+                                  style: GoogleFonts.playfairDisplay(
+                                    color: kwhite,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
                               w20,
-                              Text(
-                                cost,
-                                style: GoogleFonts.playfairDisplay(
-                                  color: kwhite,
-                                  fontSize: 20,
+                              Expanded(
+                                child: Text(
+                                  "\$${data[index].coffeecost}",
+                                  style: GoogleFonts.playfairDisplay(
+                                    color: kwhite,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               )
                             ],
                           ),
                           Text(
-                            subtitle,
+                            data[index].coffeedescription,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(color: kGrey),
@@ -95,7 +90,7 @@ class Buyedcartitems extends StatelessWidget {
                               ),
                               child: Center(
                                   child: Text(
-                                'You Buyed',
+                                'Purchased',
                                 style: GoogleFonts.playfairDisplay(
                                   color: kwhite,
                                   fontSize: 20,
@@ -116,7 +111,7 @@ class Buyedcartitems extends StatelessWidget {
               color: kbrownlight,
             );
           },
-          itemCount: 10,
+          itemCount: data.length,
         ),
       ),
     );

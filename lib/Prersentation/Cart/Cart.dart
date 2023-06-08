@@ -1,6 +1,7 @@
 import 'package:coffeeapp/Prersentation/Cart/Add.dart';
 import 'package:coffeeapp/Prersentation/Cart/Buy.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,6 +10,7 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getCoffeesData();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -44,16 +46,18 @@ class Cart extends StatelessWidget {
                 ),
               )),
           extendBodyBehindAppBar: true,
-          body: const TabBarView(children: [
-            Buyedcartitems(
+          body: TabBarView(children: [
+            ValueListenableBuilder(
+                valueListenable: CoffeeListNotifier,
+                builder: (context, newvalue, _) {
+                  return Buyedcartitems(
+                    data: newvalue,
+                  );
+                }),
+            const Addedcartitems(
                 title: 'Latte',
-                subtitle: 'A coffee mixture with milk,shdsdhfds sdfy fdufhudf sufu dfuydf usdfuf sfusfsf usfusf sudfhudsfsdf sfusf ssfusfus fushfusdfusd  sdhfusdf ddhufhdsfu sdfhsudhfusdf sfhsufs sfduhfu',
-                from: 'Mc Cafe',
-                cost: '\$2',
-                imageurl: 'asset/mc donalds/Mc_2.jpg'),
-            Addedcartitems(
-                title: 'Latte',
-                subtitle: 'A coffee mixture with milk,shdsdhfds sdfy fdufhudf sufu dfuydf usdfuf sfusfsf usfusf sudfhudsfsdf sfusf ssfusfus fushfusdfusd  sdhfusdf ddhufhdsfu sdfhsudhfusdf sfhsufs sfduhfu',
+                subtitle:
+                    'A coffee mixture with milk,shdsdhfds sdfy fdufhudf sufu dfuydf usdfuf sfusfsf usfusf sudfhudsfsdf sfusf ssfusfus fushfusdfusd  sdhfusdf ddhufhdsfu sdfhsudhfusdf sfhsufs sfduhfu',
                 from: 'Mc Cafe',
                 cost: '\$2',
                 imageurl: 'asset/mc donalds/Mc_2.jpg'),

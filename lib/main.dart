@@ -1,18 +1,13 @@
 import 'package:coffeeapp/Prersentation/Sign_Ui/Sign_in_up.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
-
-void main() {
-  // Set system navigation bar color
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      systemNavigationBarColor: ktransaparent,
-    ),   
-  );
-
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDatabase();
+  await initializedDatabase();
   runApp(const MyApp());
 }
 
@@ -26,7 +21,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       home: const Sign_in_up(),
-    );        
-  } 
+    );
+  }
 }
 // 

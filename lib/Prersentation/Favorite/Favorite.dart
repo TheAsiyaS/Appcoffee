@@ -62,7 +62,7 @@ class Favouritecard extends StatelessWidget {
                     color: kbrownlight,
                   ),
                   Text(
-                    "Coffee_somethingdfuhdf fduigfug  dfhgufdg kdfidf d dfgd gdfjidf ",
+                    "Coffee_something dfuhdf fduigfug  dfhgufdg kdfiddfu idf ",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
