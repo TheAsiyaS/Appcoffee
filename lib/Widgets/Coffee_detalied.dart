@@ -1,6 +1,4 @@
-import 'package:coffeeapp/Domain/Coffee_subtitle.dart';
-import 'package:coffeeapp/Domain/Coffee_titile.dart';
-import 'package:coffeeapp/Domain/Urls.dart';
+
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
@@ -10,9 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-final commonurllist = [];
-final commontitlelist = [];
-final commonsubtitlelist = [];
 
 class Coffee_detailed extends StatelessWidget {
   const Coffee_detailed(
@@ -33,35 +28,7 @@ class Coffee_detailed extends StatelessWidget {
   Widget build(BuildContext context) {
     ValueNotifier<double> ratingvalue = ValueNotifier(3);
     ValueNotifier<bool> islike = ValueNotifier(false);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      commonurllist.addAll([
-        kUrlAll,
-        kUrlCosta,
-        kUrlDunkin,
-        kUrlMccafe,
-        kUrlPeets,
-        kUrlStarbucks,
-        kUrlNescafe
-      ]);
-      commontitlelist.addAll([
-        kalltitile,
-        kcostatitile,
-        kdunkintitile,
-        kmcafetitile,
-        kpeetstitile,
-        kstarbuckstitile,
-        knescafetitile
-      ]);
-      commonsubtitlelist.addAll([
-        kallSubtitle,
-        kcostaSubtitile,
-        kdunkinSubtitile,
-        kmcafeSubtitile,
-        kpeetsSubtitile,
-        kstarbucksSubtitile,
-        knescafeSubtitile
-      ]);
-    });
+   
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ktransaparent,

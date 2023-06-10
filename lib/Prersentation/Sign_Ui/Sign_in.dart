@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:coffeeapp/Navigation.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
+import 'package:coffeeapp/db/Authentication/UserAuthentcatio.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/db/Model/UserModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -13,15 +18,21 @@ class Sign_in extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> isshow = ValueNotifier(false);
-   // final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
         children: [
           CupertinoTextField(
             placeholder: ' Username.....',
+            controller: usernameController,
             placeholderStyle: const TextStyle(color: kwhite),
-            onSubmitted: (value) {},
+            onSubmitted: (value) {
+              usernameController.text = value;
+            },
+            onChanged: (value) => usernameController.text = value,
             prefix: kperson,
             decoration: const BoxDecoration(),
           ),
@@ -31,8 +42,12 @@ class Sign_in extends StatelessWidget {
           h30,
           CupertinoTextField(
             placeholder: ' Password.....',
+            controller: passwordController,
             placeholderStyle: const TextStyle(color: kwhite),
-            onSubmitted: (value) {},
+            onSubmitted: (value) {
+              passwordController.text = value;
+            },
+            onChanged: (value) => passwordController.text = value,
             prefix: ksecurity,
             suffix: ValueListenableBuilder(
                 valueListenable: isshow,
@@ -62,10 +77,26 @@ class Sign_in extends StatelessWidget {
             height: 70,
             width: 200,
             child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => const Navigationbar()),
-                    (route) => false);
+              onPressed: () async {
+                log('username ${usernameController.text}');
+                final value = await getuserData(usernameController.text);
+                if (value == true) {
+                  final user = User(
+                      username: usernameController.text,
+                      password: passwordController.text);
+                  await AuthenticationManager().setAuthenticatedUser(user);
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const Navigationbar()),
+                      (route) => false);
+                } else {
+                  const snackBar = SnackBar(
+                    backgroundColor: kgoldlight,
+                    content: Text('User not Found'),
+                    duration: Duration(seconds: 2),
+                  );
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: kbrown,
