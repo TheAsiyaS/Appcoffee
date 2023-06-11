@@ -20,7 +20,7 @@ Future<void> initializeDatabase() async {
     version: 1,
     onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE coffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT )');
+          'CREATE TABLE coffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT , username TEXT )');
     },
   );
   adddb = await openDatabase(
@@ -28,7 +28,7 @@ Future<void> initializeDatabase() async {
     version: 1,
     onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE addcoffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT )');
+          'CREATE TABLE addcoffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT , username TEXT )');
     },
   );
   favdb = await openDatabase(
@@ -36,7 +36,7 @@ Future<void> initializeDatabase() async {
     version: 1,
     onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE favcoffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT )');
+          'CREATE TABLE favcoffee (id INTEGER PRIMARY KEY, coffeename TEXT,coffeeurl TEXT , coffeedescription TEXT , coffeecost TEXT , username TEXT )');
     },
   );
   userdb = await openDatabase(
@@ -44,13 +44,14 @@ Future<void> initializeDatabase() async {
     version: 1,
     onCreate: (Database db, int version) async {
       await db.execute(
-          'CREATE TABLE user (id INTEGER PRIMARY KEY,username TEXT,password TEXT)');
+          'CREATE TABLE user (id INTEGER PRIMARY KEY,username TEXT,password TEXT, username TEXT )');
     },
   );
 }
 
-Future<void> getCoffeesData() async {
-  final value = await db.rawQuery('SELECT * FROM coffee');
+Future<void> getCoffeesData(String username) async {
+  final value =
+      await db.rawQuery('SELECT * FROM coffee WHERE username = ?', [username]);
   CoffeeListNotifier.value.clear();
   //log('db: $value');
   value.forEach((json) {
@@ -61,8 +62,9 @@ Future<void> getCoffeesData() async {
   });
 }
 
-Future<void> getaddCoffeesData() async {
-  final value = await adddb.rawQuery('SELECT * FROM addcoffee');
+Future<void> getaddCoffeesData(String username) async {
+  final value = await adddb
+      .rawQuery('SELECT * FROM addcoffee WHERE username = ?', [username]);
   addCoffeeListNotifier.value.clear();
   // log('db: $value');
   value.forEach((json) {
@@ -72,8 +74,9 @@ Future<void> getaddCoffeesData() async {
   });
 }
 
-Future<void> getfavCoffeesData() async {
-  final value = await favdb.rawQuery('SELECT * FROM favcoffee');
+Future<void> getfavCoffeesData(String username) async {
+  final value = await favdb
+      .rawQuery('SELECT * FROM favcoffee WHERE username = ?', [username]);
   CoffeeListNotifier.value.clear();
   log('db: $value');
   value.forEach((json) {
@@ -85,23 +88,22 @@ Future<void> getfavCoffeesData() async {
 }
 
 Future<bool> getuserData(String username) async {
-  bool isok;
   final value = await userdb
       .rawQuery('SELECT * FROM user WHERE username = ?', [username]);
   userNotifier.value.clear();
   log('db: $value');
-   final valueuser = await userdb.rawQuery('SELECT * FROM user');
-    log('value user $valueuser');
+  final valueuser = await userdb.rawQuery('SELECT * FROM user');
+  log('value user $valueuser');
   value.forEach((json) {
     final userdetail = User.fromJson(json);
-      log('db: $userdetail');
+    log('db: $userdetail');
     userNotifier.value.add(userdetail);
     userNotifier.notifyListeners();
   });
   if (value.isNotEmpty) {
-    return isok = true;
+    return true;
   } else {
-    return isok = false;
+    return false;
   }
 }
 
@@ -116,38 +118,38 @@ Future<bool> getuserData(String username) async {
 */
 Future<void> addCoffeesData(CoffeeModel coffeemodel) async {
   await db.rawInsert(
-      'INSERT INTO coffee(coffeename, coffeeurl, coffeedescription,coffeecost) VALUES(?,?,?,?)',
+      'INSERT INTO coffee(coffeename, coffeeurl, coffeedescription,coffeecost,username) VALUES(?,?,?,?,?)',
       [
         coffeemodel.coffeename,
         coffeemodel.coffeeurl,
         coffeemodel.coffeedescription,
-        coffeemodel.coffeecost
+        coffeemodel.coffeecost,
+        coffeemodel.username
       ]);
-  getCoffeesData();
 }
 
 Future<void> AddCoffeesData(AddCoffeeModel coffeemodel) async {
   await adddb.rawInsert(
-      'INSERT INTO addcoffee(coffeename, coffeeurl, coffeedescription,coffeecost) VALUES(?,?,?,?)',
+      'INSERT INTO addcoffee(coffeename, coffeeurl, coffeedescription,coffeecost,username) VALUES(?,?,?,?,?)',
       [
         coffeemodel.coffeename,
         coffeemodel.coffeeurl,
         coffeemodel.coffeedescription,
-        coffeemodel.coffeecost
+        coffeemodel.coffeecost,
+         coffeemodel.username
       ]);
-  getaddCoffeesData();
 }
 
 Future<void> AddCoffeesfavData(FavCoffeeModel coffeemodel) async {
   await favdb.rawInsert(
-      'INSERT INTO favcoffee(coffeename, coffeeurl, coffeedescription,coffeecost) VALUES(?,?,?,?)',
+      'INSERT INTO favcoffee(coffeename, coffeeurl, coffeedescription,coffeecost,username) VALUES(?,?,?,?,?)',
       [
         coffeemodel.coffeename,
         coffeemodel.coffeeurl,
         coffeemodel.coffeedescription,
-        coffeemodel.coffeecost
+        coffeemodel.coffeecost,
+         coffeemodel.username
       ]);
-  getfavCoffeesData();
 }
 
 Future<bool> addUserData(String username, String password) async {

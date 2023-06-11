@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:coffeeapp/Navigation.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
@@ -7,6 +5,7 @@ import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/db/Authentication/UserAuthentcatio.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/UserModel.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,7 +66,7 @@ class Sign_up extends StatelessWidget {
 
             if (passwordController.text != repasswordController.text) {
               const snackBar = SnackBar(
-                 backgroundColor: kgoldlight,
+                backgroundColor: kgoldlight,
                 content: Text('password is not match'),
                 duration: Duration(seconds: 2),
               );
@@ -100,11 +99,11 @@ class Sign_up extends StatelessWidget {
                   usernameController.text, passwordController.text);
               if (value == true &&
                   passwordController.text == repasswordController.text) {
-                    final user=   User(
-                      username: usernameController.text,
-                      password: passwordController.text);
-                  await AuthenticationManager().setAuthenticatedUser(user);
-                
+                final user = User(
+                    username: usernameController.text,
+                    password: passwordController.text);
+                await AuthenticationManager().setAuthenticatedUser(user);
+                userdata = user;
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(
                         builder: (context) => const Navigationbar()),
@@ -113,7 +112,7 @@ class Sign_up extends StatelessWidget {
                 const snackBar = SnackBar(
                   backgroundColor: kgoldlight,
                   content: Text('Some Error ocuured!!'),
-                  duration: Duration(seconds: 2),//12345
+                  duration: Duration(seconds: 2), //12345
                 );
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }

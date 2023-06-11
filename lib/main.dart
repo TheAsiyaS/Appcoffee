@@ -13,32 +13,40 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+late User? userdata;
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getuser();
+  }
+
+  Future<void> getuser() async {
+    final authuser = await AuthenticationManager().getAuthenticatedUser();
+    setState(() {
+      userdata = authuser;
+    });
+  }
+//[{id: 1, username: usercoffee, password: 456789}, {id: 2, username: coffeedb, password: db}, {id: 3, username: asi, password: 89}]
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        scaffoldBackgroundColor: kblack,
-        brightness: Brightness.dark,
-      ),
-      home: FutureBuilder<User?>(
-        future: AuthenticationManager().getAuthenticatedUser(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else {
-            final authenticatedUser = snapshot.data;
-            if (authenticatedUser != null) {
-              return const Navigationbar();
-            } else {
-              return const Sign_in_up();
-            }
-          }
-        },
-      ),
-    );
+        theme: ThemeData(
+          scaffoldBackgroundColor: kblack,
+          brightness: Brightness.dark,
+        ),
+        home: userdata == null ? const Sign_in_up() : const Navigationbar());
   }
 }
+
 //
 

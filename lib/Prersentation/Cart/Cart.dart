@@ -2,6 +2,7 @@ import 'package:coffeeapp/Prersentation/Cart/Add.dart';
 import 'package:coffeeapp/Prersentation/Cart/Buy.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +11,7 @@ class Cart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getCoffeesData();
+    getCoffeesData(userdata!.username);
     return DefaultTabController(
       length: 2,
       child: Scaffold(

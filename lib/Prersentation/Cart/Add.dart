@@ -2,6 +2,7 @@ import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +23,7 @@ class Addedcartitems extends StatelessWidget {
       itemCount,
       (_) => ValueNotifier(0),
     );
-    getaddCoffeesData();
+    getaddCoffeesData(userdata!.username);
     return ValueListenableBuilder(
         valueListenable: addCoffeeListNotifier,
         builder: (context, newvalue, _) {

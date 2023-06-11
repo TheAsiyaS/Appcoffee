@@ -7,6 +7,7 @@ import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/db/Authentication/UserAuthentcatio.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/UserModel.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -85,6 +86,7 @@ class Sign_in extends StatelessWidget {
                       username: usernameController.text,
                       password: passwordController.text);
                   await AuthenticationManager().setAuthenticatedUser(user);
+                  userdata = user;
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(
                           builder: (context) => const Navigationbar()),

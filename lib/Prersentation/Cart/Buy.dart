@@ -1,6 +1,9 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
+import 'package:coffeeapp/Widgets/ConatinerText.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/CoffeeModel.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -14,6 +17,7 @@ class Buyedcartitems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return SizedBox(
       height: size.height,
       width: size.width,
@@ -77,26 +81,7 @@ class Buyedcartitems extends StatelessWidget {
                           h10,
                           Align(
                             alignment: Alignment.center,
-                            child: Container(
-                              height: size.height / 15,
-                              width: size.width / 2.5,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                border: Border.all(
-                                  color:
-                                      kbrownlight, // Set the color of the border
-                                  width: 1, // Set the width of the border
-                                ),
-                              ),
-                              child: Center(
-                                  child: Text(
-                                'Purchased',
-                                style: GoogleFonts.playfairDisplay(
-                                  color: kwhite,
-                                  fontSize: 20,
-                                ),
-                              )),
-                            ),
+                            child: containerText(size: size, text: 'Purchased'),
                           )
                         ],
                       ),
@@ -117,3 +102,4 @@ class Buyedcartitems extends StatelessWidget {
     );
   }
 }
+

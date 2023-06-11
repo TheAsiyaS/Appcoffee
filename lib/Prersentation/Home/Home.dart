@@ -31,8 +31,7 @@ class Home extends StatelessWidget {
               color: ktransaparentGrey,
               child: IconButton(
                   onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const MyWidget()));
+                  
                   },
                   icon: ksqGrid)),
           actions: const [

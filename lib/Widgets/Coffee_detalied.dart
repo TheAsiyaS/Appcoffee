@@ -1,13 +1,12 @@
-
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/CoffeeModel.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class Coffee_detailed extends StatelessWidget {
   const Coffee_detailed(
@@ -28,7 +27,7 @@ class Coffee_detailed extends StatelessWidget {
   Widget build(BuildContext context) {
     ValueNotifier<double> ratingvalue = ValueNotifier(3);
     ValueNotifier<bool> islike = ValueNotifier(false);
-   
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: ktransaparent,
@@ -97,12 +96,13 @@ class Coffee_detailed extends StatelessWidget {
                                     onPressed: () async {
                                       islike.value = !islike.value;
                                       final model = FavCoffeeModel(
+                                          username: userdata!.username,
                                           coffeename: Coffee_title,
                                           coffeeurl: Coffee_url,
                                           coffeedescription: Coffee_subtitle,
                                           coffeecost: Coffee_cost);
                                       await AddCoffeesfavData(model);
-                                    }, 
+                                    },
                                     icon: islike.value
                                         ? kfavorite
                                         : kfavorite_outline);
@@ -131,7 +131,7 @@ class Coffee_detailed extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: size.height/4,
+              height: size.height / 4,
               width: size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,6 +178,7 @@ class Coffee_detailed extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           final model = AddCoffeeModel(
+                              username: userdata!.username,
                               coffeename: Coffee_title,
                               coffeeurl: Coffee_url,
                               coffeedescription: Coffee_subtitle,
@@ -207,6 +208,7 @@ class Coffee_detailed extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           final model = CoffeeModel(
+                              username: userdata!.username,
                               coffeename: Coffee_title,
                               coffeeurl: Coffee_url,
                               coffeedescription: Coffee_subtitle,

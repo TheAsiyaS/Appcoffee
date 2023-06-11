@@ -1,5 +1,6 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 
 class Liked extends StatelessWidget {
@@ -8,6 +9,7 @@ class Liked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    getfavCoffeesData(userdata!.username);
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Favourite')),
@@ -30,7 +32,7 @@ class Liked extends StatelessWidget {
                             title: newvalue[index].coffeename,
                           )),
                 );
-              })), 
+              })),
     );
   }
 }
