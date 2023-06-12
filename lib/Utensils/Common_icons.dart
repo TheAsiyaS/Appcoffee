@@ -1,3 +1,4 @@
+import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,20 +26,17 @@ const kmorevert = Icon(
 const kadd = Icon(
   Icons.add,
 );
-const kremove= Icon(
+const kremove = Icon(
   Icons.remove,
 );
 const kcart = Icon(
   Icons.shopping_cart,
 );
-const kback = Icon(
-CupertinoIcons.back
-);
+const kback = Icon(CupertinoIcons.back);
 
-
-const kfavorite_outline = Icon(
-Icons.favorite_outline_outlined
-);
-const kfavorite = Icon(
-Icons.favorite
+const kfavorite_outline = Icon(Icons.favorite_outline_outlined);
+const kfavorite = Icon(Icons.favorite);
+const kclose = Icon(
+  Icons.close,
+  color: Color.fromARGB(255, 255, 157, 0),
 );

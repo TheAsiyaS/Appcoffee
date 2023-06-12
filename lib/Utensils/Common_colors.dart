@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const ktransaparentGrey = Color.fromARGB(114, 136, 136, 136);
 const kblack = Colors.black;
 const kwhite = Colors.white;
+const kred = Colors.red;
 const ktransaparent = Colors.transparent;
 const kbrown = Color.fromARGB(255, 141, 94, 6);
 const kbrownlight = Color.fromARGB(255, 208, 140, 12);

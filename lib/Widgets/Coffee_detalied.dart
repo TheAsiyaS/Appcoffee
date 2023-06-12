@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
@@ -16,13 +18,15 @@ class Coffee_detailed extends StatelessWidget {
       required this.Coffee_subtitle,
       required this.size,
       required this.Coffee_cost,
-      required this.catergory});
+      required this.catergory,
+      required this.coffeeid});
   final String Coffee_url;
   final String Coffee_title;
   final String Coffee_subtitle;
   final Size size;
   final String Coffee_cost;
   final String catergory;
+  final String coffeeid;
   @override
   Widget build(BuildContext context) {
     ValueNotifier<double> ratingvalue = ValueNotifier(3);
@@ -96,6 +100,7 @@ class Coffee_detailed extends StatelessWidget {
                                     onPressed: () async {
                                       islike.value = !islike.value;
                                       final model = FavCoffeeModel(
+                                          coffeeid: coffeeid,
                                           username: userdata!.username,
                                           coffeename: Coffee_title,
                                           coffeeurl: Coffee_url,
@@ -178,6 +183,7 @@ class Coffee_detailed extends StatelessWidget {
                       GestureDetector(
                         onTap: () async {
                           final model = AddCoffeeModel(
+                              coffeeid: coffeeid,
                               username: userdata!.username,
                               coffeename: Coffee_title,
                               coffeeurl: Coffee_url,
@@ -207,12 +213,15 @@ class Coffee_detailed extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () async {
+                          log("$coffeeid    ${userdata!.username}");
                           final model = CoffeeModel(
-                              username: userdata!.username,
-                              coffeename: Coffee_title,
-                              coffeeurl: Coffee_url,
-                              coffeedescription: Coffee_subtitle,
-                              coffeecost: Coffee_cost);
+                            username: userdata!.username,
+                            coffeename: Coffee_title,
+                            coffeeurl: Coffee_url,
+                            coffeedescription: Coffee_subtitle,
+                            coffeecost: Coffee_cost,
+                            coffeeid: coffeeid,
+                          );
                           await addCoffeesData(model);
                         },
                         child: Container(

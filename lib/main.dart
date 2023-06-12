@@ -13,7 +13,7 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-late User? userdata;
+User? userdata;
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
       userdata = authuser;
     });
   }
+
 //[{id: 1, username: usercoffee, password: 456789}, {id: 2, username: coffeedb, password: db}, {id: 3, username: asi, password: 89}]
   @override
   Widget build(BuildContext context) {

@@ -1,4 +1,3 @@
-import 'package:coffeeapp/check.dart';
 import 'package:coffeeapp/Prersentation/Tabbarwidgets/Costa.dart';
 import 'package:coffeeapp/Prersentation/Tabbarwidgets/Dunkin.dart';
 import 'package:coffeeapp/Prersentation/Tabbarwidgets/Nescafe.dart';

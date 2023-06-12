@@ -5,6 +5,7 @@ import 'package:coffeeapp/Prersentation/Sign_Ui/Sign_in_up.dart';
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Widgets/ConatinerText.dart';
 import 'package:coffeeapp/db/Authentication/UserAuthentcatio.dart';
+import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/UserModel.dart';
 import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +66,9 @@ class Account extends StatelessWidget {
                     indent: 20,
                   ),
                   GestureDetector(
-                      onTap: () {
+                      onTap: () async{
                         log('log out ');
-                        AuthenticationManager().signOut();
+                     await   AuthenticationManager().signOut();
                         userdata = User(username: '', password: '');
                         bottomIndex.value = 0;
                         Navigator.of(context).pushAndRemoveUntil(
@@ -76,7 +77,16 @@ class Account extends StatelessWidget {
                             (route) => false);
                       },
                       child: containerText(size: size, text: 'Sign Out')),
-                  containerText(size: size, text: 'Delete Account'),
+                  GestureDetector(
+                      onTap: () async {
+                        await deleteUser(userdata!.username);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => const Sign_in_up()),
+                            (route) => false);
+                        bottomIndex.value = 0;
+                      },
+                      child: containerText(size: size, text: 'Delete Account')),
                   Text('Delete ${userdata!.username} permanently',
                       style: const TextStyle(color: kGrey, fontSize: 15))
                 ],

@@ -1,9 +1,9 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
+import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/Widgets/ConatinerText.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
 import 'package:coffeeapp/db/Model/CoffeeModel.dart';
-import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,6 +54,8 @@ class Buyedcartitems extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   data[index].coffeename,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                   style: GoogleFonts.playfairDisplay(
                                     color: kwhite,
                                     fontSize: 20,
@@ -69,7 +71,7 @@ class Buyedcartitems extends StatelessWidget {
                                     fontSize: 20,
                                   ),
                                 ),
-                              )
+                              ),
                             ],
                           ),
                           Text(
@@ -79,9 +81,24 @@ class Buyedcartitems extends StatelessWidget {
                             style: const TextStyle(color: kGrey),
                           ),
                           h10,
-                          Align(
-                            alignment: Alignment.center,
-                            child: containerText(size: size, text: 'Purchased'),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              containerText(size: size, text: 'Purchased'),
+                              IconButton(
+                                  onPressed: () async {
+                                    final model = CoffeeModel(
+                                        coffeename: data[index].coffeename,
+                                        coffeeurl: data[index].coffeeurl,
+                                        coffeedescription:
+                                            data[index].coffeedescription,
+                                        coffeecost: data[index].coffeecost,
+                                        username: data[index].username,
+                                        coffeeid: data[index].coffeeid);
+                                    await deletecoffee(model);
+                                  },
+                                  icon: kclose)
+                            ],
                           )
                         ],
                       ),
@@ -102,4 +119,3 @@ class Buyedcartitems extends StatelessWidget {
     );
   }
 }
-

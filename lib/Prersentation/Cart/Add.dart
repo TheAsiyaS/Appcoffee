@@ -2,6 +2,7 @@ import 'package:coffeeapp/Utensils/Common_colors.dart';
 import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/Utensils/Common_sizes.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/db/Model/CoffeeModel.dart';
 import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,10 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 class Addedcartitems extends StatelessWidget {
   const Addedcartitems({
     Key? key,
-
   }) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -59,19 +57,25 @@ class Addedcartitems extends StatelessWidget {
                               children: [
                                 Row(
                                   children: [
-                                    Text(
-                                      newvalue[index].coffeename,
-                                      style: GoogleFonts.playfairDisplay(
-                                        color: kwhite,
-                                        fontSize: 20,
+                                    Expanded(
+                                      child: Text(
+                                        newvalue[index].coffeename,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.playfairDisplay(
+                                          color: kwhite,
+                                          fontSize: 20,
+                                        ),
                                       ),
                                     ),
                                     w20,
-                                    Text(
-                                      '\$${newvalue[index].coffeecost}',
-                                      style: GoogleFonts.playfairDisplay(
-                                        color: kwhite,
-                                        fontSize: 20,
+                                    Expanded(
+                                      child: Text(
+                                        '\$${newvalue[index].coffeecost}',
+                                        style: GoogleFonts.playfairDisplay(
+                                          color: kwhite,
+                                          fontSize: 20,
+                                        ),
                                       ),
                                     )
                                   ],
@@ -83,62 +87,84 @@ class Addedcartitems extends StatelessWidget {
                                   style: const TextStyle(color: kGrey),
                                 ),
                                 h10,
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Container(
-                                    height: size.height / 15,
-                                    width: size.width / 2,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(50),
-                                      border: Border.all(
-                                        color: kbrownlight,
-                                        width: 1,
+                                Row(
+                                  children: [
+                                    Container(
+                                      height: size.height / 15,
+                                      width: size.width / 2.1,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(50),
+                                        border: Border.all(
+                                          color: kbrownlight,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: ValueListenableBuilder(
+                                        valueListenable: itemCounts[index],
+                                        builder: (context, newvalue, _) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  itemCounts[index].value++;
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: kgoldlight,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
+                                                ),
+                                                child: kadd,
+                                              ),
+                                              Text(
+                                                  '${itemCounts[index].value}'),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  if (itemCounts[index].value ==
+                                                      0) {
+                                                    itemCounts[index].value = 0;
+                                                  } else {
+                                                    itemCounts[index].value--;
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: kgoldlight,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
+                                                ),
+                                                child: kremove,
+                                              ),
+                                            ],
+                                          );
+                                        },
                                       ),
                                     ),
-                                    child: ValueListenableBuilder(
-                                      valueListenable: itemCounts[index],
-                                      builder: (context, newvalue, _) {
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                itemCounts[index].value++;
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: kgoldlight,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                              child: kadd,
-                                            ),
-                                            Text('${itemCounts[index].value}'),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                if (itemCounts[index].value ==
-                                                    0) {
-                                                  itemCounts[index].value = 0;
-                                                } else {
-                                                  itemCounts[index].value--;
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: kgoldlight,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                              child: kremove,
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
+                                    IconButton(
+                                        onPressed: () async {
+                                          final model = AddCoffeeModel(
+                                              coffeename:
+                                                  newvalue[index].coffeename,
+                                              coffeeurl:
+                                                  newvalue[index].coffeeurl,
+                                              coffeedescription: newvalue[index]
+                                                  .coffeedescription,
+                                              coffeecost:
+                                                  newvalue[index].coffeecost,
+                                              username:
+                                                  newvalue[index].username,
+                                              coffeeid:
+                                                  newvalue[index].coffeeid);
+                                          await deleteaddcoffee(model);
+                                        },
+                                        icon: kclose)
+                                  ],
                                 )
                               ],
                             ),

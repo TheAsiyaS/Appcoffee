@@ -1,6 +1,7 @@
+import 'package:coffeeapp/Domain/Coffee_ids.dart';
 import 'package:coffeeapp/Domain/Coffee_subtitle.dart';
 import 'package:coffeeapp/Domain/Coffee_titile.dart';
-import 'package:coffeeapp/Domain/Urls.dart';
+import 'package:coffeeapp/Domain/Coffee_Urls.dart';
 import 'package:coffeeapp/Widgets/Coffee_detalied.dart';
 import 'package:coffeeapp/Widgets/Coffee_item_card.dart';import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class Starbucks extends StatelessWidget {
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Coffee_detailed(
+                            coffeeid: kstarbucksid[index],
                           catergory: 'Starbucks',
                             Coffee_cost: '${index + 1}',
                             size: size,

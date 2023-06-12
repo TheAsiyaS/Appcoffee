@@ -1,5 +1,7 @@
 import 'package:coffeeapp/Utensils/Common_colors.dart';
+import 'package:coffeeapp/Utensils/Common_icons.dart';
 import 'package:coffeeapp/db/Dbfunction.dart';
+import 'package:coffeeapp/db/Model/CoffeeModel.dart';
 import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 
@@ -24,75 +26,76 @@ class Liked extends StatelessWidget {
                   mainAxisSpacing: 30,
                   children: List.generate(
                       favCoffeeListNotifier.value.length,
-                      (index) => Favouritecard(
-                            size: size,
-                            url: newvalue[index].coffeeurl,
-                            cost: newvalue[index].coffeecost,
-                            subtitle: newvalue[index].coffeedescription,
-                            title: newvalue[index].coffeename,
+                      (index) => SizedBox(
+                            height: size.height / 3.5,
+                            width: size.width / 2.2,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: size.height / 7.5,
+                                  width: size.width / 3,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              newvalue[index].coffeeurl),
+                                          fit: BoxFit.cover)),
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+                                    child: Column(
+                                      children: [
+                                        IconButton(
+                                            onPressed: () async {
+                                              final model = FavCoffeeModel(
+                                                  coffeename: newvalue[index]
+                                                      .coffeename,
+                                                  coffeeurl:
+                                                      newvalue[index].coffeeurl,
+                                                  coffeedescription:
+                                                      newvalue[index]
+                                                          .coffeedescription,
+                                                  coffeecost: newvalue[index]
+                                                      .coffeecost,
+                                                  username:
+                                                      newvalue[index].username,
+                                                  coffeeid:
+                                                      newvalue[index].coffeeid);
+                                              await deletefavcoffee(model);
+                                            },
+                                            icon: kclose),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Card(
+                                  color: kblack,
+                                  child: ListTile(
+                                    title: Center(
+                                      child: Text(
+                                        newvalue[index].coffeename,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ),
+                                    subtitle: Column(
+                                      children: [
+                                        const Divider(
+                                          color: kbrownlight,
+                                        ),
+                                        Text(
+                                          newvalue[index].coffeedescription,
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
                           )),
                 );
               })),
-    );
-  }
-}
-
-class Favouritecard extends StatelessWidget {
-  const Favouritecard({
-    super.key,
-    required this.size,
-    required this.url,
-    required this.title,
-    required this.subtitle,
-    required this.cost,
-  });
-
-  final Size size;
-  final String url;
-  final String title;
-  final String subtitle;
-  final String cost;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: size.height / 3.5,
-      width: size.width / 2.2,
-      child: Column(
-        children: [
-          Container(
-            height: size.height / 7.5,
-            width: size.width / 3,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                image:
-                    DecorationImage(image: AssetImage(url), fit: BoxFit.cover)),
-          ),
-          Card(
-            color: kblack,
-            child: ListTile(
-              title: Center(
-                child: Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              subtitle: Column(
-                children: [
-                  const Divider(
-                    color: kbrownlight,
-                  ),
-                  Text(
-                    subtitle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
     );
   }
 }
