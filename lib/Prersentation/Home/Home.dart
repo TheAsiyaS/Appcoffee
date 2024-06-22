@@ -28,16 +28,12 @@ class Home extends StatelessWidget {
           backgroundColor: ktransaparent,
           leading: Card(
               color: ktransaparentGrey,
-              child: IconButton(
-                  onPressed: () {
-                  
-                  },
-                  icon: ksqGrid)),
+              child: IconButton(onPressed: () {}, icon: ksqGrid)),
           actions: const [
             CircleAvatar(
               radius: 25,
-              backgroundImage:
-                  NetworkImage('https://static.toiimg.com/photo/89078867.cms'),
+              backgroundColor: kbrownlight,
+              backgroundImage: AssetImage('asset/common/common_6.jpg'),
             ),
             w20,
           ],

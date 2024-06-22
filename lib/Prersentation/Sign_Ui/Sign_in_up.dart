@@ -33,10 +33,10 @@ class Sign_in_up extends StatelessWidget {
                   width: size.width / 2,
                   decoration: const BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('asset/logo/logo_coffee.png'))),
+                          image: AssetImage('asset/logo/1.png',),fit: BoxFit.cover)),
                   child: Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text('Coffee House',
+                    child: Text('ARABICA',
                         style: GoogleFonts.playfairDisplay(
                             color: const Color.fromARGB(255, 224, 170, 6),
                             fontSize: 25)),

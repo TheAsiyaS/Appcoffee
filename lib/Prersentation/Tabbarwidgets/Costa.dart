@@ -16,6 +16,7 @@ class Costa extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: kIsWeb ? size.width / 6 : 0),
       child: GridView.count(
+         padding: EdgeInsets.zero,
         crossAxisCount: 2,
         mainAxisSpacing:  40,
         crossAxisSpacing: kIsWeb ? 50 : 0,
@@ -33,12 +34,12 @@ class Costa extends StatelessWidget {
                             Coffee_title: kcostatitile[index],
                             Coffee_subtitle: kcostaSubtitile[index])));
                   },
-              child: Coffee_items(
+              child: CoffeeItems(
                 cost: index.toString(),
                   size: size,
-                  Coffee_img_url: kUrlCosta[index],
-                  Coffee_name: kcostatitile[index],
-                  Coffee_something: kcostaSubtitile[index]),
+                  coffeeImgUrl: kUrlCosta[index],
+                  coffeeName: kcostatitile[index],
+                  coffeeSomething: kcostaSubtitile[index]),
             )),
       ),
     );

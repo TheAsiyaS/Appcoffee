@@ -126,6 +126,7 @@ class Sign_up extends StatelessWidget {
             ),
             child: Text('Sign Up',
                 style: GoogleFonts.playfairDisplay(
+                    color: kwhite,
                     fontSize: 20, fontWeight: FontWeight.bold)),
           ),
         ),

@@ -33,7 +33,7 @@ class Account extends StatelessWidget {
             decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage(
-                      'asset/logo/logo_coffee.png',
+                      'asset/logo/1.png',
                     ),
                     fit: BoxFit.cover)),
           ),

@@ -109,7 +109,9 @@ class Sign_in extends StatelessWidget {
               ),
               child: Text('Sign In',
                   style: GoogleFonts.playfairDisplay(
-                      fontSize: 20, fontWeight: FontWeight.bold)),
+                      color: kwhite,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold)),
             ),
           ),
           h10,

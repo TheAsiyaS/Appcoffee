@@ -15,6 +15,7 @@ class Peets extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: kIsWeb ? size.width / 6 : 0),
       child: GridView.count(
+         padding: EdgeInsets.zero,
         crossAxisCount: 2,
         mainAxisSpacing: 40,
         crossAxisSpacing: kIsWeb ? 50 : 0,
@@ -32,12 +33,12 @@ class Peets extends StatelessWidget {
                             Coffee_title: kpeetstitile[index],
                             Coffee_subtitle: kpeetsSubtitile[index])));
                   },
-              child: Coffee_items(
+              child: CoffeeItems(
                 cost: index.toString(),
                   size: size,
-                  Coffee_img_url: kUrlPeets[index],
-                  Coffee_name: kpeetstitile[index],
-                  Coffee_something: kpeetsSubtitile[index]),
+                  coffeeImgUrl: kUrlPeets[index],
+                  coffeeName: kpeetstitile[index],
+                  coffeeSomething: kpeetsSubtitile[index]),
             )),
       ),
     );
