@@ -14,6 +14,7 @@ late Database db;
 late Database adddb;
 late Database favdb;
 late Database userdb;
+
 Future<void> initializeDatabase() async {
   db = await openDatabase(
     'coffee.db',
@@ -72,15 +73,24 @@ Future<void> getCoffeesData(String username) async {
 Future<void> getaddCoffeesData(String username) async {
   final value = await adddb
       .rawQuery('SELECT * FROM addcoffee WHERE username = ?', [username]);
-  addCoffeeListNotifier.value.clear();
-  // log('db: $value');
-  value.forEach((json) {
-    final coffeedetail = AddCoffeeModel.fromJson(json);
-    addCoffeeListNotifier.value.add(coffeedetail);
 
-    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    addCoffeeListNotifier.notifyListeners();
-  });
+  addCoffeeListNotifier.value.clear();
+
+  List<AddCoffeeModel> allCoffees =
+      value.map((json) => AddCoffeeModel.fromJson(json)).toList();
+
+  List<AddCoffeeModel> uniqueCoffees = removeDuplicates(allCoffees);
+
+  addCoffeeListNotifier.value.addAll(uniqueCoffees);
+
+  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+  addCoffeeListNotifier.notifyListeners();
+}
+
+// Function to remove duplicates
+List<AddCoffeeModel> removeDuplicates(List<AddCoffeeModel> coffees) {
+  final seen = <String>{};
+  return coffees.where((coffee) => seen.add(coffee.coffeename)).toList();
 }
 
 Future<void> getfavCoffeesData(String username) async {

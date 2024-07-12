@@ -32,8 +32,8 @@ class Liked extends StatelessWidget {
                             child: Column(
                               children: [
                                 Container(
-                                  height: size.height / 7.5,
-                                  width: size.width / 3,
+                                  height: size.height / 8,
+                                  width: size.width / 3.3,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
@@ -44,51 +44,60 @@ class Liked extends StatelessWidget {
                                     alignment: Alignment.centerRight,
                                     child: Column(
                                       children: [
-                                        IconButton(
-                                            onPressed: () async {
-                                              final model = FavCoffeeModel(
-                                                  coffeename: newvalue[index]
-                                                      .coffeename,
-                                                  coffeeurl:
-                                                      newvalue[index].coffeeurl,
-                                                  coffeedescription:
-                                                      newvalue[index]
-                                                          .coffeedescription,
-                                                  coffeecost: newvalue[index]
-                                                      .coffeecost,
-                                                  username:
-                                                      newvalue[index].username,
-                                                  coffeeid:
-                                                      newvalue[index].coffeeid);
-                                              await deletefavcoffee(model);
-                                            },
-                                            icon: kclose),
+                                        Container(
+                                          height: 40,
+                                          width: 40,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromARGB(
+                                                  148, 255, 255, 255),
+                                              borderRadius:
+                                                  BorderRadius.circular(50)),
+                                          child: IconButton(
+                                              onPressed: () async {
+                                                final model = FavCoffeeModel(
+                                                    coffeename: newvalue[index]
+                                                        .coffeename,
+                                                    coffeeurl: newvalue[index]
+                                                        .coffeeurl,
+                                                    coffeedescription:
+                                                        newvalue[index]
+                                                            .coffeedescription,
+                                                    coffeecost: newvalue[index]
+                                                        .coffeecost,
+                                                    username: newvalue[index]
+                                                        .username,
+                                                    coffeeid: newvalue[index]
+                                                        .coffeeid);
+                                                await deletefavcoffee(model);
+                                              },
+                                              icon: const Icon(
+                                                Icons.close,
+                                                color: kbrowndark,
+                                              )),
+                                        ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Card(
-                                  color: kblack,
-                                  child: ListTile(
-                                    title: Center(
-                                      child: Text(
-                                        newvalue[index].coffeename,
-                                        maxLines: 1,
+                                ListTile(
+                                  title: Center(
+                                    child: Text(
+                                      newvalue[index].coffeename,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  subtitle: Column(
+                                    children: [
+                                      const Divider(
+                                        color: kbrownlight,
+                                      ),
+                                      Text(
+                                        newvalue[index].coffeedescription,
+                                        maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
-                                    ),
-                                    subtitle: Column(
-                                      children: [
-                                        const Divider(
-                                          color: kbrownlight,
-                                        ),
-                                        Text(
-                                          newvalue[index].coffeedescription,
-                                          maxLines: 2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ],
-                                    ),
+                                    ],
                                   ),
                                 )
                               ],
