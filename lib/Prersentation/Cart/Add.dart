@@ -1,3 +1,4 @@
+
 import 'package:coffeeapp/Utensils/Common_colors.dart';
 
 import 'package:coffeeapp/db/Dbfunction.dart';
@@ -5,6 +6,11 @@ import 'package:coffeeapp/db/Model/CoffeeModel.dart';
 import 'package:coffeeapp/main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+class DataItem {
+  int value;
+  DataItem(this.value);
+}
 
 class Addedcartitems extends StatelessWidget {
   const Addedcartitems({
@@ -16,11 +22,6 @@ class Addedcartitems extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     int itemCount = addCoffeeListNotifier.value.length;
 
-    List<ValueNotifier<int>> itemCounts = List.generate(
-      itemCount,
-      (_) => ValueNotifier(0),
-    );
-
     // Ensure getaddCoffeesData is called to update the list
     getaddCoffeesData(userdata!.username);
 
@@ -29,7 +30,8 @@ class Addedcartitems extends StatelessWidget {
       builder: (context, newvalue, _) {
         // Update itemCount to reflect the current state of the list
         itemCount = newvalue.length;
-
+        ValueNotifier<List<DataItem>> list =
+            ValueNotifier(List.generate(itemCount, (index) => DataItem(0)));
         return SizedBox(
           height: size.height,
           width: size.width,
@@ -91,7 +93,7 @@ class Addedcartitems extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(color: kGrey),
                               ),
-                              SizedBox(height: 10),
+                              const SizedBox(height: 10),
                               Row(
                                 children: [
                                   Container(
@@ -105,49 +107,54 @@ class Addedcartitems extends StatelessWidget {
                                       ),
                                     ),
                                     child: ValueListenableBuilder(
-                                      valueListenable: itemCounts[index],
-                                      builder: (context, newvalue, _) {
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                itemCounts[index].value++;
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: kgoldlight,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
+                                        valueListenable: list,
+                                        builder: (context, value, _) {
+                                          return Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  list.value[index].value++;
+                                                  list.value =
+                                                      List.from(list.value);
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: kgoldlight,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
                                                 ),
+                                                child: const Text(
+                                                    '+'), // Updated to avoid missing reference
                                               ),
-                                              child: Text('+'), // Updated to avoid missing reference
-                                            ),
-                                            Text(
-                                                '${itemCounts[index].value}'),
-                                            ElevatedButton(
-                                              onPressed: () {
-                                                if (itemCounts[index].value ==
-                                                    0) {
-                                                  itemCounts[index].value = 0;
-                                                } else {
-                                                  itemCounts[index].value--;
-                                                }
-                                              },
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: kgoldlight,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
+                                              Text(
+                                                  '${list.value[index].value}'),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  if (list.value[index].value >
+                                                      0) {
+                                                    list.value[index].value--;
+                                                    list.value =
+                                                        List.from(list.value);
+                                                  }
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: kgoldlight,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
                                                 ),
+                                                child: const Text(
+                                                    '-'), // Updated to avoid missing reference
                                               ),
-                                              child: Text('-'), // Updated to avoid missing reference
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
+                                            ],
+                                          );
+                                        }),
                                   ),
                                   IconButton(
                                     onPressed: () async {
@@ -164,7 +171,8 @@ class Addedcartitems extends StatelessWidget {
                                       // Update the notifier after deletion
                                       getaddCoffeesData(userdata!.username);
                                     },
-                                    icon: Icon(Icons.close), // Updated to avoid missing reference
+                                    icon: Icon(Icons
+                                        .close), // Updated to avoid missing reference
                                   ),
                                 ],
                               ),
@@ -189,4 +197,3 @@ class Addedcartitems extends StatelessWidget {
     );
   }
 }
-
