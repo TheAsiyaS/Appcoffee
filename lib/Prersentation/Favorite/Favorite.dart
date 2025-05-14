@@ -31,7 +31,7 @@ class Liked extends StatelessWidget {
                             child: Column(
                               children: [
                                 Container(
-                                  height: size.height / 8,
+                                  height: size.height / 9,
                                   width: size.width / 3.3,
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
