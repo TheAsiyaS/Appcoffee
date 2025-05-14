@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Dunkin extends StatelessWidget {
-  const Dunkin({Key? key});
+  const Dunkin({super.key, });
 
   @override
   Widget build(BuildContext context) {

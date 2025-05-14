@@ -9,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class Buyedcartitems extends StatelessWidget {
   const Buyedcartitems({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   final List<CoffeeModel> data;
   @override

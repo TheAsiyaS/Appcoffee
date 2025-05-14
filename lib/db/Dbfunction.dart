@@ -61,13 +61,13 @@ Future<void> getCoffeesData(String username) async {
       await db.rawQuery('SELECT * FROM coffee WHERE username = ?', [username]);
   CoffeeListNotifier.value.clear();
   //log('db: $value');
-  value.forEach((json) {
+  for (var json in value) {
     final coffeedetail = CoffeeModel.fromJson(json);
     CoffeeListNotifier.value.add(coffeedetail);
 
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     CoffeeListNotifier.notifyListeners();
-  });
+  }
 }
 
 Future<void> getaddCoffeesData(String username) async {
@@ -98,13 +98,13 @@ Future<void> getfavCoffeesData(String username) async {
       .rawQuery('SELECT * FROM favcoffee WHERE username = ?', [username]);
   favCoffeeListNotifier.value.clear();
 
-  value.forEach((json) {
+  for (var json in value) {
     final coffeedetail = FavCoffeeModel.fromJson(json);
     favCoffeeListNotifier.value.add(coffeedetail);
 
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     favCoffeeListNotifier.notifyListeners();
-  });
+  }
 }
 
 Future<bool> getuserData(String username) async {
@@ -114,14 +114,14 @@ Future<bool> getuserData(String username) async {
   log('db: $value');
   final valueuser = await userdb.rawQuery('SELECT * FROM user');
   log('value user $valueuser');
-  value.forEach((json) {
+  for (var json in value) {
     final userdetail = User.fromJson(json);
     log('db: $userdetail');
     userNotifier.value.add(userdetail);
 
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     userNotifier.notifyListeners();
-  });
+  }
   if (value.isNotEmpty) {
     return true;
   } else {

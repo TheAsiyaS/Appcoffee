@@ -182,14 +182,19 @@ class Coffee_detailed extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                          final model = AddCoffeeModel(
-                              coffeeid: coffeeid,
-                              username: userdata!.username,
-                              coffeename: Coffee_title,
-                              coffeeurl: Coffee_url,
-                              coffeedescription: Coffee_subtitle,
-                              coffeecost: Coffee_cost);
-                          await AddCoffeesData(model);
+                          if (catergory == 'Starbucks') {
+                          } else if (catergory == 'Costa') {
+                          } else if (catergory == 'Nescafe') {
+                          } else {
+                            final model = AddCoffeeModel(
+                                coffeeid: coffeeid,
+                                username: userdata!.username,
+                                coffeename: Coffee_title,
+                                coffeeurl: Coffee_url,
+                                coffeedescription: Coffee_subtitle,
+                                coffeecost: Coffee_cost);
+                            await AddCoffeesData(model);
+                          }
                         },
                         child: Container(
                           height: size.height / 12,
@@ -208,21 +213,31 @@ class Coffee_detailed extends StatelessWidget {
                           child: Center(
                               child: Text('Add to cart',
                                   style: GoogleFonts.dancingScript(
-                                      fontSize: 25, color: kwhite))),
+                                      decoration: catergory == 'Starbucks' ||
+                                              catergory == 'Costa' ||
+                                              catergory == 'Nescafe'
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                      fontSize: 25,
+                                      color: kwhite))),
                         ),
                       ),
                       GestureDetector(
                         onTap: () async {
-                          log("$coffeeid    ${userdata!.username}");
-                          final model = CoffeeModel(
-                            username: userdata!.username,
-                            coffeename: Coffee_title,
-                            coffeeurl: Coffee_url,
-                            coffeedescription: Coffee_subtitle,
-                            coffeecost: Coffee_cost,
-                            coffeeid: coffeeid,
-                          );
-                          await addCoffeesData(model);
+                          if (catergory == 'Starbucks') {
+                          } else if (catergory == 'Costa') {
+                          } else if (catergory == 'Nescafe') {
+                          } else {
+                            final model = CoffeeModel(
+                              username: userdata!.username,
+                              coffeename: Coffee_title,
+                              coffeeurl: Coffee_url,
+                              coffeedescription: Coffee_subtitle,
+                              coffeecost: Coffee_cost,
+                              coffeeid: coffeeid,
+                            );
+                            await addCoffeesData(model);
+                          }
                         },
                         child: Container(
                           height: size.height / 12,
@@ -241,7 +256,13 @@ class Coffee_detailed extends StatelessWidget {
                           child: Center(
                               child: Text('Buy Now',
                                   style: GoogleFonts.dancingScript(
-                                      fontSize: 25, color: kwhite))),
+                                      decoration: catergory == 'Starbucks' ||
+                                              catergory == 'Costa' ||
+                                              catergory == 'Nescafe'
+                                          ? TextDecoration.lineThrough
+                                          : TextDecoration.none,
+                                      fontSize: 25,
+                                      color: kwhite))),
                         ),
                       )
                     ],

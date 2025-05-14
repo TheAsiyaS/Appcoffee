@@ -7,7 +7,7 @@ import 'package:coffeeapp/Widgets/Coffee_item_card.dart';import 'package:flutter
 import 'package:flutter/material.dart';
 
 class Peets extends StatelessWidget {
-  const Peets({Key? key});
+  const Peets({super.key, });
 
   @override
   Widget build(BuildContext context) {

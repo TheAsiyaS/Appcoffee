@@ -14,7 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Sign_in extends StatelessWidget {
-  const Sign_in({Key? key});
+  const Sign_in({super.key,});
 
   @override
   Widget build(BuildContext context) {

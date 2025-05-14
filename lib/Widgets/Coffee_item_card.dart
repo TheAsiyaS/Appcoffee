@@ -6,13 +6,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CoffeeItems extends StatelessWidget {
   const CoffeeItems({
-    Key? key,
+    super.key,
     required this.size,
     required this.coffeeImgUrl,
     required this.coffeeName,
     required this.coffeeSomething,
     required this.cost,
-  }) : super(key: key);
+  });
 
   final Size size;
   final String coffeeImgUrl;

@@ -14,8 +14,8 @@ class DataItem {
 
 class Addedcartitems extends StatelessWidget {
   const Addedcartitems({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
